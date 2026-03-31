@@ -20,7 +20,7 @@ const { id: jobId } = await fetch(`${BASE}/v1/process`, {
 
 console.log(`Submitted: ${jobId}`);
 
-let delay = 3000;
+let delay = 5000;
 while (true) {
   await new Promise(r => setTimeout(r, delay));
   const result = await fetch(`${BASE}/v1/jobs/${jobId}`, {
@@ -30,9 +30,10 @@ while (true) {
   console.log(`  Status: ${result.status}`);
 
   if (result.status === "completed") {
+    const res = result.result;
     console.log("\n--- Extracted Text ---");
-    console.log((result.text_preview || result.text || "").slice(0, 2000));
-    if (result.preview_url) console.log(`\nFull preview: ${result.preview_url}`);
+    console.log((res.text_preview || res.text || "").slice(0, 2000));
+    if (result.preview_url) console.log(`\nShareable preview: ${result.preview_url}`);
     break;
   } else if (result.status === "failed") {
     console.error(`Failed: ${result.error || "Unknown error"}`);

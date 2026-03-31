@@ -18,4 +18,4 @@ while true; do
   [ "$STATUS" = "completed" ] || [ "$STATUS" = "failed" ] && break
 done
 
-echo "$RESULT" | python3 -c "import sys,json; print(json.dumps(json.load(sys.stdin).get('structured_data',{}), indent=2))"
+echo "$RESULT" | python3 -c "import sys,json; print(json.dumps(json.load(sys.stdin)['result']['data'], indent=2))"

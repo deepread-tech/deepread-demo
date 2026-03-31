@@ -22,7 +22,10 @@ echo "$RESULT" | python3 -c "
 import sys,json
 r = json.load(sys.stdin)
 if r['status'] == 'completed':
+    res = r['result']
     print('\n--- Extracted Text ---')
-    print(r.get('text_preview', r.get('text', ''))[:2000])
+    print(res.get('text_preview', res.get('text', ''))[:2000])
+    if r.get('preview_url'):
+        print(f'\nShareable preview: {r[\"preview_url\"]}')
 else:
     print(f'Failed: {r.get(\"error\", \"Unknown\")}')"

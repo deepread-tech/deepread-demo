@@ -22,6 +22,8 @@ echo "$RESULT" | python3 -c "
 import sys,json
 r = json.load(sys.stdin)
 if r['status'] == 'completed':
-    print(f'Filled form: {r.get(\"filled_file_url\", \"N/A\")}')
+    print(f'Fields detected: {r.get(\"fields_detected\")}')
+    print(f'Fields filled: {r.get(\"fields_filled\")}')
+    print(f'Filled form: {r.get(\"filled_form_url\", \"N/A\")}')
 else:
-    print(f'Failed: {r.get(\"error\", \"Unknown\")}')"
+    print(f'Failed: {r.get(\"error_message\", \"Unknown\")}')"

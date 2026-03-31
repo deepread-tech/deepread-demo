@@ -57,7 +57,7 @@ job_id = job["id"]
 print(f"Submitted: {job_id}")
 
 # Poll with backoff
-delay = 3
+delay = 5
 while True:
     time.sleep(delay)
     result = requests.get(f"{BASE}/v1/jobs/{job_id}", headers=headers).json()
@@ -65,14 +65,14 @@ while True:
     print(f"  Status: {status}")
 
     if status == "completed":
-        data = result.get("structured_data", {})
+        data = result["result"]["data"]
         print("\n--- Extracted Fields ---")
         print(json.dumps(data, indent=2))
 
         # Show human-in-the-loop flags
         for field, value in data.items():
             if isinstance(value, dict) and value.get("hil_flag"):
-                print(f"\n  ⚠ '{field}' flagged for review: {value.get('reason', 'low confidence')}")
+                print(f"\n  Warning: '{field}' flagged for review: {value.get('reason', 'low confidence')}")
         break
     elif status == "failed":
         print(f"Failed: {result.get('error', 'Unknown error')}")

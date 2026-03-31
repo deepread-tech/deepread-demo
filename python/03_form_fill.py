@@ -45,7 +45,7 @@ job_id = job["id"]
 print(f"Submitted: {job_id}")
 
 # Poll with backoff
-delay = 3
+delay = 5
 while True:
     time.sleep(delay)
     result = requests.get(f"{BASE}/v1/form-fill/{job_id}", headers=headers).json()
@@ -53,7 +53,10 @@ while True:
     print(f"  Status: {status}")
 
     if status == "completed":
-        filled_url = result.get("filled_file_url")
+        filled_url = result.get("filled_form_url")
+        print(f"\nFields detected: {result.get('fields_detected')}")
+        print(f"Fields filled: {result.get('fields_filled')}")
+        print(f"Fields flagged for review: {result.get('fields_hil_flagged')}")
         print(f"\nFilled form: {filled_url}")
 
         # Download the filled PDF
@@ -65,7 +68,7 @@ while True:
             print(f"Saved to: {out_path}")
         break
     elif status == "failed":
-        print(f"Failed: {result.get('error', 'Unknown error')}")
+        print(f"Failed: {result.get('error_message', 'Unknown error')}")
         break
 
     delay = min(delay * 1.5, 15)

@@ -29,7 +29,7 @@ job_id = job["id"]
 print(f"Submitted: {job_id} (status: {job['status']})")
 
 # Poll with backoff
-delay = 3
+delay = 5
 while True:
     time.sleep(delay)
     result = requests.get(f"{BASE}/v1/jobs/{job_id}", headers=headers).json()
@@ -37,10 +37,11 @@ while True:
     print(f"  Status: {status}")
 
     if status == "completed":
+        res = result["result"]
         print("\n--- Extracted Text ---")
-        print(result.get("text_preview") or result.get("text", "")[:2000])
+        print(res.get("text_preview") or res.get("text", "")[:2000])
         if result.get("preview_url"):
-            print(f"\nFull preview: {result['preview_url']}")
+            print(f"\nShareable preview: {result['preview_url']}")
         break
     elif status == "failed":
         print(f"Failed: {result.get('error', 'Unknown error')}")

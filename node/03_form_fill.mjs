@@ -29,7 +29,7 @@ const { id: jobId } = await fetch(`${BASE}/v1/form-fill`, {
 
 console.log(`Submitted: ${jobId}`);
 
-let delay = 3000;
+let delay = 5000;
 while (true) {
   await new Promise(r => setTimeout(r, delay));
   const result = await fetch(`${BASE}/v1/form-fill/${jobId}`, {
@@ -39,7 +39,10 @@ while (true) {
   console.log(`  Status: ${result.status}`);
 
   if (result.status === "completed") {
-    const filledUrl = result.filled_file_url;
+    console.log(`\nFields detected: ${result.fields_detected}`);
+    console.log(`Fields filled: ${result.fields_filled}`);
+    console.log(`Fields flagged: ${result.fields_hil_flagged}`);
+    const filledUrl = result.filled_form_url;
     console.log(`\nFilled form: ${filledUrl}`);
     if (filledUrl) {
       const pdf = await fetch(filledUrl).then(r => r.arrayBuffer());
@@ -49,7 +52,7 @@ while (true) {
     }
     break;
   } else if (result.status === "failed") {
-    console.error(`Failed: ${result.error}`);
+    console.error(`Failed: ${result.error_message}`);
     break;
   }
   delay = Math.min(delay * 1.5, 15000);
