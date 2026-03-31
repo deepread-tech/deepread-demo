@@ -1,0 +1,7 @@
+{
+  "name": "deepread-demo",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Working examples for the DeepRead document AI API",
+  "license": "MIT"
+}
