@@ -34,8 +34,10 @@ while (true) {
     console.log("\n--- PII Detection Report ---");
     console.log(`Pages scanned: ${report.page_count}`);
     console.log(`Total redactions: ${report.total_redactions}`);
+    console.log(`Confidence threshold: ${report.confidence_threshold_used}`);
+    console.log(`Below threshold: ${report.below_threshold_count}`);
     for (const [type, info] of Object.entries(report.pii_detected || {})) {
-      console.log(`  ${type}: ${info.count} found on pages ${info.pages} (avg: ${info.confidence_avg.toFixed(2)})`);
+      console.log(`  ${type}: ${info.count} found on pages ${info.pages} (avg: ${info.confidence_avg.toFixed(2)}, min: ${(info.confidence_min || 0).toFixed(2)})`);
     }
     if (result.redacted_file_url) {
       const pdf = await fetch(result.redacted_file_url).then(r => r.arrayBuffer());

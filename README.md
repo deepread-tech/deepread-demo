@@ -65,10 +65,12 @@ Fields with `hil_flag: true` need human review — DeepRead tells you exactly wh
 ```json
 {
   "total_redactions": 6,
+  "confidence_threshold_used": 0.85,
+  "below_threshold_count": 0,
   "pii_detected": {
-    "NAME": {"count": 3, "pages": [1, 2], "confidence_avg": 0.92},
-    "SSN": {"count": 1, "pages": [1], "confidence_avg": 0.98},
-    "PHONE": {"count": 2, "pages": [1], "confidence_avg": 0.89}
+    "NAME": {"count": 3, "pages": [1, 2], "confidence_avg": 0.92, "confidence_min": 0.87},
+    "SSN": {"count": 1, "pages": [1], "confidence_avg": 0.98, "confidence_min": 0.98},
+    "PHONE": {"count": 2, "pages": [1], "confidence_avg": 0.89, "confidence_min": 0.85}
   }
 }
 ```

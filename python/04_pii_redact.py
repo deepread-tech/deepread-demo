@@ -46,10 +46,11 @@ while True:
         print(f"\n--- PII Detection Report ---")
         print(f"Pages scanned: {report.get('page_count')}")
         print(f"Total redactions: {report.get('total_redactions')}")
-        print(f"Confidence threshold: {report.get('confidence_threshold_used')}")
+        print(f"Confidence threshold: {report.get('confidence_threshold_used', 0.85)}")
+        print(f"Below threshold: {report.get('below_threshold_count', 0)}")
 
         for pii_type, info in report.get("pii_detected", {}).items():
-            print(f"  {pii_type}: {info['count']} found on pages {info['pages']} (avg confidence: {info['confidence_avg']:.2f})")
+            print(f"  {pii_type}: {info['count']} found on pages {info['pages']} (avg: {info['confidence_avg']:.2f}, min: {info.get('confidence_min', 0):.2f})")
 
         # Download redacted file
         redacted_url = result.get("redacted_file_url")

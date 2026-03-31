@@ -20,8 +20,10 @@ def handle_webhook():
         preview = payload.get("preview_url")
         print(f"  Preview: {preview}")
 
-        if result.get("structured_data"):
-            print(f"  Structured data: {result['structured_data']}")
+        if result.get("data"):
+            print(f"  Extracted data: {result['data']}")
+        if result.get("text_preview"):
+            print(f"  Text preview: {result['text_preview'][:200]}")
 
     return jsonify({"ok": True}), 200
 
