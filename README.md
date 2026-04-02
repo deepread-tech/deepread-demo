@@ -103,6 +103,23 @@ python app.py
 
 Set `DEEPREAD_API_KEY` as an environment variable in Railway after deploying.
 
+## n8n Integration
+
+Use DeepRead in no-code workflows with our [n8n community node](https://www.npmjs.com/package/n8n-nodes-deepread). Install in n8n: Settings → Community Nodes → `n8n-nodes-deepread`. Supports OCR, structured extraction, form filling, and PII redaction — drag and drop into any workflow.
+
+## AI Agent Skills
+
+DeepRead works with Claude Code, Cursor, Codex, and other AI coding agents:
+
+```bash
+clawhub install uday390/deepread-ocr          # OCR & structured extraction
+clawhub install uday390/deepread-form-fill     # PDF form filling
+clawhub install uday390/deepread-pii           # PII redaction
+clawhub install uday390/deepread-byok          # Bring Your Own Key
+clawhub install uday390/deepread-invoice       # Invoice processing
+clawhub install uday390/deepread-medical       # Medical records
+```
+
 ## BYOK — Bring Your Own Key
 
 Connect your own OpenAI, Google, or OpenRouter API key via the [dashboard](https://www.deepread.tech/dashboard/byok). All processing routes through your account — zero DeepRead LLM costs, page quota skipped entirely.
