@@ -99,7 +99,7 @@ python app.py
 
 ### Deploy to Railway
 
-[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/template/deepread-demo)
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/SKWCvX?referralCode=GT7CA-)
 
 Set `DEEPREAD_API_KEY` as an environment variable in Railway after deploying.
 
