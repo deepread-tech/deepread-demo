@@ -85,6 +85,24 @@ After: `Patient ██████████, SSN █████████�
 - **Free tier**: 2,000 pages/month, no credit card
 - **Docs**: [deepread.tech](https://www.deepread.tech)
 
+## Web Demo App
+
+A deployable web UI that lets you upload documents and see results in your browser. Supports OCR, structured extraction, and PII redaction.
+
+```bash
+cd webapp
+pip install -r requirements.txt
+export DEEPREAD_API_KEY=sk_live_your_key
+python app.py
+# Open http://localhost:8080
+```
+
+### Deploy to Railway
+
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/template/deepread-demo)
+
+Set `DEEPREAD_API_KEY` as an environment variable in Railway after deploying.
+
 ## BYOK — Bring Your Own Key
 
 Connect your own OpenAI, Google, or OpenRouter API key via the [dashboard](https://www.deepread.tech/dashboard/byok). All processing routes through your account — zero DeepRead LLM costs, page quota skipped entirely.
