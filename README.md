@@ -109,8 +109,19 @@ Use DeepRead in no-code workflows with our [n8n community node](https://www.npmj
 
 ## AI Agent Skills
 
-DeepRead works with Claude Code, Cursor, Codex, and other AI coding agents:
+DeepRead works with Claude Code, Cursor, Codex, OpenCode, Cline, and 50+ other AI coding agents.
 
+**Claude Code (official community marketplace):**
+```bash
+/plugin install deepread@claude-community
+```
+
+**Universal install (works with all agents via skills.sh):**
+```bash
+npx skills add deepread-tech/skills
+```
+
+**ClawHub (individual skills):**
 ```bash
 clawhub install uday390/deepread-ocr          # OCR & structured extraction
 clawhub install uday390/deepread-form-fill     # PDF form filling
@@ -118,6 +129,8 @@ clawhub install uday390/deepread-pii           # PII redaction
 clawhub install uday390/deepread-byok          # Bring Your Own Key
 clawhub install uday390/deepread-invoice       # Invoice processing
 clawhub install uday390/deepread-medical       # Medical records
+clawhub install uday390/deepread-legal         # Legal documents
+clawhub install uday390/deepread-insurance     # Insurance claims
 ```
 
 ## BYOK — Bring Your Own Key
