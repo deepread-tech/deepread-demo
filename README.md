@@ -87,21 +87,11 @@ After: `Patient ██████████, SSN █████████�
 
 ## Web Demo App
 
-A deployable web UI that lets you upload documents and see results in your browser. Supports OCR, structured extraction, and PII redaction.
+For a deployable web UI (OCR, structured extraction, form fill, PII redaction), use the standalone **[deepread-webapp](https://github.com/deepread-tech/deepread-webapp)** repository — it's the official Railway template:
 
-```bash
-cd webapp
-pip install -r requirements.txt
-export DEEPREAD_API_KEY=sk_live_your_key
-python app.py
-# Open http://localhost:8080
-```
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/template/deepread)
 
-### Deploy to Railway
-
-[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/SKWCvX?referralCode=GT7CA-)
-
-Set `DEEPREAD_API_KEY` as an environment variable in Railway after deploying.
+> *Note: this repo previously bundled a Flask web app in `webapp/`. It is superseded by the standalone `deepread-webapp` repo, which adds Form Fill and ships as the official Railway template.*
 
 ## n8n Integration
 
