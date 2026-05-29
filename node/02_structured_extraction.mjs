@@ -47,7 +47,7 @@ while (true) {
 
   if (result.status === "completed") {
     console.log("\n--- Extracted Fields ---");
-    console.log(JSON.stringify(result.result.data, null, 2));
+    console.log(JSON.stringify(result.extraction.fields, null, 2));
     break;
   } else if (result.status === "failed") {
     console.error(`Failed: ${result.error}`);

@@ -51,14 +51,18 @@ cd curl && chmod +x *.sh
 
 ```json
 {
-  "vendor": {"value": "Acme Corp", "hil_flag": false, "found_on_page": 1},
-  "total": {"value": 1250.00, "hil_flag": false, "found_on_page": 1},
-  "invoice_number": {"value": "INV-2026-0042", "hil_flag": false, "found_on_page": 1},
-  "date": {"value": "2026-03-15", "hil_flag": true, "reason": "Multiple dates found"}
+  "extraction": {
+    "fields": [
+      {"key": "vendor", "value": "Acme Corp", "needs_review": false, "location": {"page": 1}},
+      {"key": "total", "value": 1250.00, "needs_review": false, "location": {"page": 1}},
+      {"key": "invoice_number", "value": "INV-2026-0042", "needs_review": false, "location": {"page": 1}},
+      {"key": "date", "value": "2026-03-15", "needs_review": true, "review_reason": "Multiple dates found", "location": {"page": 1}}
+    ]
+  }
 }
 ```
 
-Fields with `hil_flag: true` need human review — DeepRead tells you exactly which fields to check.
+Fields with `needs_review: true` need human review — DeepRead tells you exactly which fields to check.
 
 ### PII Redaction Report
 

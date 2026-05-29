@@ -7,23 +7,24 @@ app = Flask(__name__)
 @app.route("/webhooks/deepread", methods=["POST"])
 def handle_webhook():
     payload = request.json
-    event = payload.get("event")
-    job_id = payload.get("job_id")
+    # The webhook payload is identical to GET /v1/jobs/{id} (schema_version "dp02").
+    job_id = payload.get("id")
     status = payload.get("status")
 
-    print(f"\nWebhook received: {event}")
+    print(f"\nWebhook received (schema: {payload.get('schema_version')})")
     print(f"  Job: {job_id}")
     print(f"  Status: {status}")
 
     if status == "completed":
-        result = payload.get("result", {})
-        preview = payload.get("preview_url")
+        preview = payload.get("artifacts", {}).get("preview_url")
         print(f"  Preview: {preview}")
 
-        if result.get("data"):
-            print(f"  Extracted data: {result['data']}")
-        if result.get("text_preview"):
-            print(f"  Text preview: {result['text_preview'][:200]}")
+        fields = payload.get("extraction", {}).get("fields")
+        if fields:
+            print(f"  Extracted fields: {fields}")
+        content = payload.get("document", {}).get("content", {})
+        if content.get("text_preview"):
+            print(f"  Text preview: {content['text_preview'][:200]}")
 
     return jsonify({"ok": True}), 200
 

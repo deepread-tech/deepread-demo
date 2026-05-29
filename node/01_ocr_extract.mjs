@@ -30,10 +30,10 @@ while (true) {
   console.log(`  Status: ${result.status}`);
 
   if (result.status === "completed") {
-    const res = result.result;
+    const content = result.document.content;
     console.log("\n--- Extracted Text ---");
-    console.log((res.text_preview || res.text || "").slice(0, 2000));
-    if (result.preview_url) console.log(`\nShareable preview: ${result.preview_url}`);
+    console.log((content.text_preview || content.text || "").slice(0, 2000));
+    if (result.artifacts?.preview_url) console.log(`\nShareable preview: ${result.artifacts.preview_url}`);
     break;
   } else if (result.status === "failed") {
     console.error(`Failed: ${result.error || "Unknown error"}`);

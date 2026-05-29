@@ -65,14 +65,14 @@ while True:
     print(f"  Status: {status}")
 
     if status == "completed":
-        data = result["result"]["data"]
+        fields = result["extraction"]["fields"]
         print("\n--- Extracted Fields ---")
-        print(json.dumps(data, indent=2))
+        print(json.dumps(fields, indent=2))
 
         # Show human-in-the-loop flags
-        for field, value in data.items():
-            if isinstance(value, dict) and value.get("hil_flag"):
-                print(f"\n  Warning: '{field}' flagged for review: {value.get('reason', 'low confidence')}")
+        for field in fields:
+            if field.get("needs_review"):
+                print(f"\n  Warning: '{field['key']}' flagged for review: {field.get('review_reason', 'low confidence')}")
         break
     elif status == "failed":
         print(f"Failed: {result.get('error', 'Unknown error')}")

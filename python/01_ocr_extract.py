@@ -37,11 +37,12 @@ while True:
     print(f"  Status: {status}")
 
     if status == "completed":
-        res = result["result"]
+        content = result["document"]["content"]
         print("\n--- Extracted Text ---")
-        print(res.get("text_preview") or res.get("text", "")[:2000])
-        if result.get("preview_url"):
-            print(f"\nShareable preview: {result['preview_url']}")
+        print(content.get("text_preview") or content.get("text", "")[:2000])
+        artifacts = result.get("artifacts", {})
+        if artifacts.get("preview_url"):
+            print(f"\nShareable preview: {artifacts['preview_url']}")
         break
     elif status == "failed":
         print(f"Failed: {result.get('error', 'Unknown error')}")
