@@ -11,6 +11,7 @@ if (!filePath) { console.error("Usage: node 01_ocr_extract.mjs <file.pdf>"); pro
 
 const form = new FormData();
 form.append("file", new Blob([readFileSync(filePath)]), filePath.split("/").pop());
+form.append("preview", "true"); // the shareable preview link is opt-in (the link is public)
 
 const { id: jobId } = await fetch(`${BASE}/v1/process`, {
   method: "POST",

@@ -5,7 +5,8 @@ FILE=${1:?"Usage: ./01_ocr_extract.sh <file.pdf>"}
 # Submit
 JOB_ID=$(curl -s -X POST https://api.deepread.tech/v1/process \
   -H "X-API-Key: $DEEPREAD_API_KEY" \
-  -F "file=@$FILE" | python3 -c "import sys,json; print(json.load(sys.stdin)['id'])")
+  -F "file=@$FILE" \
+  -F "preview=true" | python3 -c "import sys,json; print(json.load(sys.stdin)['id'])")
 
 echo "Submitted: $JOB_ID"
 
