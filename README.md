@@ -41,9 +41,10 @@ cd curl && chmod +x *.sh
 |---|---------|-------------|--------|---------|------|
 | 01 | OCR Extract | Extract text from any PDF/image | [01_ocr_extract.py](python/01_ocr_extract.py) | [01_ocr_extract.mjs](node/01_ocr_extract.mjs) | [01_ocr_extract.sh](curl/01_ocr_extract.sh) |
 | 02 | Structured Extraction | Extract fields as JSON with a schema | [02_structured_extraction.py](python/02_structured_extraction.py) | [02_structured_extraction.mjs](node/02_structured_extraction.mjs) | [02_structured_extraction.sh](curl/02_structured_extraction.sh) |
-| 03 | Form Fill | Fill a blank PDF form with AI vision | [03_form_fill.py](python/03_form_fill.py) | [03_form_fill.mjs](node/03_form_fill.mjs) | [03_form_fill.sh](curl/03_form_fill.sh) |
-| 04 | PII Redact | Redact names, SSNs, cards from documents | [04_pii_redact.py](python/04_pii_redact.py) | [04_pii_redact.mjs](node/04_pii_redact.mjs) | [04_pii_redact.sh](curl/04_pii_redact.sh) |
-| 05 | Webhook Server | Receive results via webhook | [05_webhook_server.py](python/05_webhook_server.py) | — | — |
+| 03 | Form Fill | Fill a blank PDF form with AI vision (Enterprise plans; other plans get 402) | [03_form_fill.py](python/03_form_fill.py) | [03_form_fill.mjs](node/03_form_fill.mjs) | [03_form_fill.sh](curl/03_form_fill.sh) |
+| 04 | PII Redact | Redact names, SSNs, cards from documents (Enterprise plans; other plans get 402) | [04_pii_redact.py](python/04_pii_redact.py) | [04_pii_redact.mjs](node/04_pii_redact.mjs) | [04_pii_redact.sh](curl/04_pii_redact.sh) |
+| 05 | Webhook Server | Receive signed results via webhook | [05_webhook_server.py](python/05_webhook_server.py) | — | — |
+| 06 | Human Review | Have a person check and correct the extraction | [06_human_review.py](python/06_human_review.py) | — | — |
 
 ## Example Output
 
@@ -87,7 +88,11 @@ After: `Patient ██████████, SSN █████████�
 - **Base URL**: `https://api.deepread.tech`
 - **Auth**: `X-API-Key` header
 - **Free tier**: 2,000 pages/month, no credit card
-- **Docs**: [deepread.tech](https://www.deepread.tech)
+- **Pricing**: Free 2,000 pages a month; Extract $15 and Deep Extract $35 per 1,000 pages
+- **Engines**: send `pipeline=extract` or `pipeline=deep-extract`
+- **Human review**: send `reviewer_email` and a person checks the result in DeepRead; see [06_human_review.py](python/06_human_review.py)
+- **Rate limits**: a `429` or `503` carries `Retry-After`; the examples wait that long and poll again
+- **Docs**: [deepread.tech/docs](https://www.deepread.tech/docs)
 
 ## Web Demo App
 
@@ -99,7 +104,9 @@ For a deployable web UI (OCR, structured extraction, form fill, PII redaction), 
 
 ## n8n Integration
 
-Use DeepRead in no-code workflows with our [n8n community node](https://www.npmjs.com/package/n8n-nodes-deepread). Install in n8n: Settings → Community Nodes → `n8n-nodes-deepread`. Supports OCR, structured extraction, form filling, and PII redaction — drag and drop into any workflow.
+Use DeepRead in no-code workflows with our [n8n community node](https://www.npmjs.com/package/n8n-nodes-deepread). Install in n8n: Settings → Community Nodes → `n8n-nodes-deepread`.
+
+n8n-nodes-deepread 0.5.0: OCR Extract, Structured Extraction, Form Fill (Enterprise), PII Redact (Enterprise); options for engine, preview, bounding boxes, idempotency, retention, incognito, reviewer email and webhook URL.
 
 ## AI Agent Skills
 
@@ -129,7 +136,8 @@ clawhub install uday390/deepread-insurance     # Insurance claims
 
 ## BYOK — Bring Your Own Key
 
-Connect your own OpenAI, Google, or OpenRouter API key via the [dashboard](https://www.deepread.tech/dashboard/byok). All processing routes through your account — zero DeepRead LLM costs, page quota skipped entirely.
+BYOK is an Enterprise feature: processing uses your own LLM key.
+Connect it in the [dashboard](https://www.deepread.tech/dashboard).
 
 ## License
 

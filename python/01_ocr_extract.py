@@ -21,7 +21,12 @@ headers = {"X-API-Key": API_KEY}
 
 # Submit document
 with open(file_path, "rb") as f:
-    resp = requests.post(f"{BASE}/v1/process", headers=headers, files={"file": f})
+    resp = requests.post(
+        f"{BASE}/v1/process",
+        headers=headers,
+        files={"file": f},
+        data={"preview": "true"},  # the shareable preview link is opt-in (the link is public)
+    )
     resp.raise_for_status()
 
 job = resp.json()
@@ -32,7 +37,11 @@ print(f"Submitted: {job_id} (status: {job['status']})")
 delay = 5
 while True:
     time.sleep(delay)
-    result = requests.get(f"{BASE}/v1/jobs/{job_id}", headers=headers).json()
+    resp = requests.get(f"{BASE}/v1/jobs/{job_id}", headers=headers)
+    if resp.status_code in (429, 503):  # rate limited or busy: no status, wait and retry
+        delay = float(resp.headers.get("Retry-After", 5))
+        continue
+    result = resp.json()
     status = result["status"]
     print(f"  Status: {status}")
 

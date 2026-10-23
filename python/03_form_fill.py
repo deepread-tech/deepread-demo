@@ -48,7 +48,11 @@ print(f"Submitted: {job_id}")
 delay = 5
 while True:
     time.sleep(delay)
-    result = requests.get(f"{BASE}/v1/form-fill/{job_id}", headers=headers).json()
+    resp = requests.get(f"{BASE}/v1/form-fill/{job_id}", headers=headers)
+    if resp.status_code in (429, 503):  # rate limited or busy: no status, wait and retry
+        delay = float(resp.headers.get("Retry-After", 5))
+        continue
+    result = resp.json()
     status = result["status"]
     print(f"  Status: {status}")
 

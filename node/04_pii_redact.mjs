@@ -23,9 +23,14 @@ console.log(`Submitted: ${jobId}`);
 let delay = 3000;
 while (true) {
   await new Promise(r => setTimeout(r, delay));
-  const result = await fetch(`${BASE}/v1/pii/${jobId}`, {
+  const res = await fetch(`${BASE}/v1/pii/${jobId}`, {
     headers: { "X-API-Key": API_KEY },
-  }).then(r => r.json());
+  });
+  if (res.status === 429 || res.status === 503) { // rate limited or busy: no status, wait and retry
+    delay = Number(res.headers.get("retry-after")) * 1000 || 5000;
+    continue;
+  }
+  const result = await res.json();
 
   console.log(`  Status: ${result.status}`);
 
