@@ -88,8 +88,9 @@ After: `Patient ██████████, SSN █████████�
 - **Base URL**: `https://api.deepread.tech`
 - **Auth**: `X-API-Key` header
 - **Free tier**: 2,000 pages/month, no credit card
-- **Pricing**: Free 2,000 pages a month; Extract $15 and Deep Extract $35 per 1,000 pages
+- **Pricing**: Free 2,000 pages a month; Extract $15, Deep Extract $35 and Deep Extract Fast $90 per 1,000 pages
 - **Engines**: send `pipeline=extract` or `pipeline=deep-extract`
+- **Speed**: optional `speed=fast` (Standard and Enterprise plans; Free gets a `402`). With `pipeline=deep-extract` it is Deep Extract Fast, about 2× faster at the same accuracy; with `pipeline=extract` it keeps the Extract price and mainly helps long documents. Omit it for standard speed
 - **Human review**: send `reviewer_email` and a person checks the result in DeepRead; see [06_human_review.py](python/06_human_review.py)
 - **Rate limits**: a `429` or `503` carries `Retry-After`; the examples wait that long and poll again
 - **Docs**: [deepread.tech/docs](https://www.deepread.tech/docs)
